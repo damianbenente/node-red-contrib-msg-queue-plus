@@ -1,0 +1,24 @@
+{
+  "name": "node-red-contrib-msg-queue-plus",
+  "version": "0.0.1",
+  "description": "node-red-contrib-msg-queue-plus",
+  "main": "queue-plus.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zentown/node-red-contrib-msg-queue-plus.git"
+  },
+  "author": "Damian Benente",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zentown/node-red-contrib-msg-queue-plus/issues"
+  },
+  "homepage": "https://github.com/zentown/node-red-contrib-msg-queue-plus#readme",
+  "node-red" : {
+        "nodes": {
+            "queue-plus": "queue-plus.js"
+        }
+    }
+}
