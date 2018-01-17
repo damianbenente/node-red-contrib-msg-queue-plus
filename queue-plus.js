@@ -3,19 +3,19 @@ module.exports = function(RED) {
   function QueuePlus(config) {
     RED.nodes.createNode(this, config);
     this.autoTriggerOn = config.autoTriggerOn;
+    this.autoTriggerTime = config.autoTriggerTime;
+    this.sendComplete = config.sendComplete;
     var node = this;
     var context = this.context();
     context.queue = context.queue || [];
     context.busy = context.busy || false;
-    sendComplete = false;
-    //autoTriggerOn = true;
-    autoTriggerTime = 1000;
+
 
     node.on('input', function(msg) {
-      node.send(prosses(msg));
+      node.send(process(msg));
     });
 
-    function prosses(msg) {
+    function process(msg) {
       if (msg.hasOwnProperty("trigger")) {
         if (context.queue.length > 0) {
           var m = context.queue.shift();
@@ -27,7 +27,7 @@ module.exports = function(RED) {
           var out1 = {};
           out1.payload = m;
           if (context.queue.length === 0) {
-            if (sendComplete === true) out1.complete = true;
+            if (node.sendComplete === true) out1.complete = true;
             context.busy = false;
             node.status({
               fill: "blue",
@@ -40,7 +40,6 @@ module.exports = function(RED) {
           }];
         } else {
           context.busy = false;
-          //var msg2 = {payload: 'end'};
           node.status({
             fill: "blue",
             shape: "ring",
@@ -60,9 +59,10 @@ module.exports = function(RED) {
         var x = context.busy;
         context.busy = true;
         if (x === false && node.autoTriggerOn === true) {
-          sleep(autoTriggerTime).then(() => {
+          node.warn(node.autoTriggerTime);
+          sleep(node.autoTriggerTime).then(() => {
             msg.trigger = true;
-            node.send(prosses(msg));
+            node.send(process(msg));
           })
         } else {
           return [null, null, {

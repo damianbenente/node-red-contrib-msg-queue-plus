@@ -5,6 +5,8 @@
         defaults: {
             name: {value:"Queue Plus"},
             autoTriggerOn: {value:false},
+            autoTriggerTime: {value:"3000"},
+            sendComplete: {value:false},
         },
         inputs:1,
         outputs:3,
@@ -21,8 +23,16 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
+        <label for="node-input-sendComplete"><i class="icon-tag"></i>Send Complete with last message</label>
+        <input type="checkbox" id="node-input-sendComplete" placeholder="sendComplete">
+    </div>
+    <div class="form-row">
         <label for="node-input-autoTriggerOn"><i class="icon-tag"></i> Enable Auto Trigger</label>
         <input type="checkbox" id="node-input-autoTriggerOn" placeholder="autoTrigger">
+    </div>
+    <div class="form-row">
+        <label for="node-input-autoTriggerTime"><i class="icon-tag"></i> Auto Trigger Time ms</label>
+        <input type="text" id="node-input-autoTriggerTime" placeholder="autoTrigger">
     </div>
 </script>
 
