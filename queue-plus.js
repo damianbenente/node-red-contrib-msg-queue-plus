@@ -1,4 +1,4 @@
-module.exports = function(RED) {
+module.exports = function (RED) {
 
   function QueuePlus(config) {
     RED.nodes.createNode(this, config);
@@ -11,7 +11,7 @@ module.exports = function(RED) {
     context.busy = context.busy || false;
 
 
-    node.on('input', function(msg) {
+    node.on('input', function (msg) {
       node.send(process(msg));
     });
 
@@ -59,7 +59,6 @@ module.exports = function(RED) {
         var x = context.busy;
         context.busy = true;
         if (x === false && node.autoTriggerOn === true) {
-          node.warn(node.autoTriggerTime);
           sleep(node.autoTriggerTime).then(() => {
             msg.trigger = true;
             node.send(process(msg));
