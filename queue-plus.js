@@ -16,7 +16,11 @@ module.exports = function (RED) {
     });
 
     function process(msg) {
-      if (msg.hasOwnProperty("trigger")) {
+      if (msg.hasOwnProperty("reset")) {
+        context.queue = [];
+        context.busy = false;
+      }
+      else if (msg.hasOwnProperty("trigger")) {
         if (context.queue.length > 0) {
           var m = context.queue.shift();
           node.status({
@@ -60,6 +64,7 @@ module.exports = function (RED) {
         context.busy = true;
         if (x === false && node.autoTriggerOn === true) {
           sleep(node.autoTriggerTime).then(() => {
+            node.send(null,{ payload: 'start'});
             msg.trigger = true;
             node.send(process(msg));
           })
