@@ -14,7 +14,7 @@ module.exports = function (RED) {
     node.on('input', function (msg) {
       node.send(process(msg));
 
-      var myEfficientFn = debounce(function() {
+      var myEfficientFn = throttle(function() {
         if (context.busy){
         node.status({
           fill: "blue",
@@ -28,7 +28,7 @@ module.exports = function (RED) {
           text: context.queue.length
         });
       }
-      }, 1000);
+      }, 250);
     });
 
     function process(msg) {
@@ -110,6 +110,21 @@ module.exports = function (RED) {
         if (callNow) func.apply(context, args);
       };
     };
+
+    function throttle(func, wait, immediate) {
+      var timeout;
+      return function() {
+        var context = this, args = arguments;
+        var later = function() {
+          timeout = null;
+          if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        if ( !timeout ) timeout = setTimeout( later, wait );
+        if (callNow) func.apply(context, args);
+      };
+    };
+
   }
 
   RED.nodes.registerType("queue-plus", QueuePlus);
