@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zentown/node-red-contrib-msg-queue-plus.git"
+    "url": "git+https://github.com/damianbenente/node-red-contrib-msg-queue-plus.git"
   },
   "author": "Damian Benente",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/zentown/node-red-contrib-msg-queue-plus/issues"
+    "url": "https://github.com/damianbenente/node-red-contrib-msg-queue-plus/issues"
   },
-  "homepage": "https://github.com/zentown/node-red-contrib-msg-queue-plus#readme",
+  "homepage": "https://github.com/damianbenente/node-red-contrib-msg-queue-plus#readme",
   "node-red" : {
         "nodes": {
             "queue-plus": "queue-plus.js"
