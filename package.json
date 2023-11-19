@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/damianbenente/node-red-contrib-msg-queue-plus.git"
   },
-  "author": "Damian Benente",
-  "license": "ISC",
+  "author": "",
+  "license": "",
   "bugs": {
     "url": "https://github.com/damianbenente/node-red-contrib-msg-queue-plus/issues"
   },
