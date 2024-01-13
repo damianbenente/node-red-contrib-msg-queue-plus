@@ -5,6 +5,7 @@ module.exports = function (RED) {
     this.autoTriggerOn = config.autoTriggerOn;
     this.autoTriggerTime = config.autoTriggerTime;
     this.sendComplete = config.sendComplete;
+    this.queueFullMessage = config.queueFullMessage;
     var node = this;
     var context = this.context();
     context.queue = context.queue || [];
@@ -24,7 +25,11 @@ module.exports = function (RED) {
         if (context.queue.length > 0) {
           var m = context.queue.shift();
           var out1 = {};
-          out1.payload = m;
+          if (node.queueFullMessage === true) {
+            out1 = m;
+          } else {
+            out1.payload = m;
+          }
           if (context.queue.length === 0) {
             if (node.sendComplete === true) out1.complete = true;
             context.busy = false;
@@ -39,7 +44,12 @@ module.exports = function (RED) {
           }];
         }
       } else {
-        context.queue.push(msg.payload);
+
+        if (node.queueFullMessage === true) {
+          context.queue.push(msg);
+        } else {
+          context.queue.push(msg.payload);
+        }
         var x = context.busy;
         context.busy = true;
         if (x === false && node.autoTriggerOn === true) {
